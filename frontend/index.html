@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Microservices Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f6f8;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        input {
+            padding: 8px;
+            width: 70%;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Microservices Demo</h1>
+
+    <div class="card">
+        <h3>Create User</h3>
+        <input type="text" id="username" placeholder="Enter name" />
+        <button onclick="createUser()">Add</button>
+
+        <div class="status" id="status"></div>
+
+        <h3>User List</h3>
+        <button onclick="getUsers()">Refresh</button>
+        <ul id="userList"></ul>
+    </div>
+
+    <script>
+        function createUser() {
+            const name = document.getElementById("username").value;
+            if (!name) return;
+
+            document.getElementById("status").innerText = "Creating user...";
+
+            fetch("/api/users", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("status").innerText = "User created!";
+                document.getElementById("username").value = "";
+                getUsers();
+            })
+            .catch(err => {
+                document.getElementById("status").innerText = "Error creating user";
+            });
+        }
+
+        function getUsers() {
+            fetch("/api/users")
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("userList");
+                list.innerHTML = "";
+
+                data.users.forEach(user => {
+                    const li = document.createElement("li");
+                    li.innerText = user[1];
+                    list.appendChild(li);
+                });
+            })
+            .catch(err => {
+                document.getElementById("status").innerText = "Error fetching users";
+            });
+        }
+    </script>
+
+</body>
+</html>
