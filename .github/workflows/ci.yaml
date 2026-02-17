@@ -46,8 +46,8 @@ jobs:
 
       - name: Update Kubernetes manifests
         run: |
-          sed -i "s|image: rushj/nkp-backend:.*|image: rushj/nkp-backend:${SHA_SHORT}|g" k8s/backend.yaml
-          sed -i "s|image: rushj/nkp-frontend:.*|image: rushj/nkp-frontend:${SHA_SHORT}|g" k8s/frontend.yaml
+          sed -i "s|image: rushj/nkp-backend:.*|image: rushj/nkp-backend:${SHA_SHORT}|g" k8s/staging/backend.yaml
+          sed -i "s|image: rushj/nkp-frontend:.*|image: rushj/nkp-frontend:${SHA_SHORT}|g" k8s/staging/frontend.yaml
 
       - name: Commit and push updated manifests
         run: |
