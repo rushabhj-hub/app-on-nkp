@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: rushj/nkp-backend:944256f
+        image: rushj/nkp-backend:2cdc540
         env:
         - name: REDIS_HOST
           value: redis
