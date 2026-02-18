@@ -23,7 +23,7 @@ def init_db():
 
 # Redis
 redis_host = os.getenv("REDIS_HOST", "redis")
-r = redis.Redis(host=redis_host, port=6379, decode_responses=True)
+r = redis.Redis(host=redis_host, port=5379, decode_responses=True)
 
 # PostgreSQL
 db_host = os.getenv("DB_HOST", "postgres")
