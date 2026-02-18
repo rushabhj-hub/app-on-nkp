@@ -23,7 +23,7 @@ def init_db():
 
 # Redis
 redis_host = os.getenv("REDIS_HOST", "redis")
-r = redis.Redis(host=redis_host, port=5379, decode_responses=True)
+r = redis.Redis(host=redis_host, port=6379, decode_responses=True)
 
 # PostgreSQL
 db_host = os.getenv("DB_HOST", "postgres")
@@ -44,7 +44,7 @@ def get_db_connection():
 
 @app.route("/api/health")
 def health():
-    return jsonify({"status": "ok"}), 200
+    return jsonify({"status": "ok"}), 500
 
 @app.route("/api/users", methods=["POST"])
 def create_user():
