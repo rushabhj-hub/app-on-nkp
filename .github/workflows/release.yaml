@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Extract tag
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
@@ -47,8 +49,8 @@ jobs:
 
       - name: Create release branch
         run: |
+          git fetch origin
           git checkout prod
-          git pull origin prod
           git checkout -b release-${VERSION}
 
       - name: Update prod manifests
