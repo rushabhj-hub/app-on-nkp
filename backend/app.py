@@ -44,7 +44,7 @@ def get_db_connection():
 
 @app.route("/api/health")
 def health():
-    return jsonify({"status": "ok"}), 500
+    return jsonify({"status": "ok"}), 200
 
 @app.route("/api/users", methods=["POST"])
 def create_user():
