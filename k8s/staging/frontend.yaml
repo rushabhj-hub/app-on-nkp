@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: rushj/nkp-frontend:538d966
+        image: rushj/nkp-frontend:10a8c4f
         ports:
         - containerPort: 80
 ---
