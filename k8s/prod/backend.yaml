@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: rushj/nkp-backend:c04ffd2
+        image: rushj/nkp-backend:9f8bc7d
         env:
         - name: REDIS_HOST
           value: redis
@@ -29,6 +29,19 @@ spec:
           value: apppass
         ports:
         - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
        
 ---
 apiVersion: v1
